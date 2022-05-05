@@ -1,0 +1,11 @@
+Dwarf
+Giant, Cloud
+Giant, Frost
+Giant, Hill
+Giant, Storm
+Gnome
+Goblin
+Kobold
+Orc
+Troglodyte
+Troll

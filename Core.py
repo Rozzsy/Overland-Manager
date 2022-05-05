@@ -18,6 +18,18 @@ import time
 yesList = ["yes", "y"]
 noList = ["no", "n"]
 
+aList = ["a", "A"]
+bList = ["b", "B"]
+cList = ["c", "C"]
+dList = ["d", "D"]
+eList = ["e", "E"]
+fList = ["f", "F"]
+gList = ["g", "G"]
+hList = ["h", "H"]
+iList = ["i", "I"]
+jList = ["j", "J"]
+zList = ["z", "Z"]
+
 #Variables
 ## Party Members
 eaters = 4
@@ -57,19 +69,44 @@ while program == True:
 
     print('''
     OPTIONS:
-    1/a ) Continue Overland Movement
-    2/b ) Adjust movement rate [4 hexes/day]
-    3/c ) Configure feature discovery [ X ]
-    4/d ) Manage random encounters [1-in-6]
-    5/e ) Manage weather generation [Generic]
-    6/f ) Resource management
-    7/g ) Terrain overview
+    a ) Continue Overland Movement
+    b ) Adjust movement rate [4 hexes/day]
+    c ) Configure feature discovery [ X ]
+    d ) Manage random encounters [1-in-6]
+    e ) Manage weather generation [Generic]
+    f ) Resource management
+    g ) Terrain overview
+    z ) Test Menu
     ''')
 
     # Options with brackets on the end will be later subsituted with stringified variables.
 
     menuInput = input(">> ")
-    if menuInput == "a":
+    if menuInput in aList:
         print("You selected option A!")
+        overland = True
+        while overland == True:
+            print("Begin Overland travel")
+
+    elif menuInput in zList:
+        print("You selected option Z: feature testing!")
+        zMode = True
+        while zMode == True:
+            print("Test What?")
+            print("a ) Generate Random Encounter")
+            menuInput = input(">> ")
+            if menuInput in aList:
+                zEncounter = True
+                while zEncounter == True:
+                    print("Print 1 random BHM - Humanoids?")
+                    menuInput = input(">> ")
+                    if menuInput in yesList:
+                        bhmHumanmoids = open("bhm_humanoids.txt", "r")
+                        bhmHumanoidsEncounter = bhmHumanmoids.readlines()
+                        print(bhmHumanoidsEncounter[random.randint(0,11)])
+                        bhmHumanmoids.close()
+                        input(">> ")
+            else:
+                print("Something went wrong. Try yes.")
     else:
         print("Something went wrong.")
