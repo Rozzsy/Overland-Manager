@@ -49,12 +49,16 @@ if water == -100:
 else:
     waterLabel = str(water)
 
-
-
 # Functions
 # def rationCheck():
 #     if rations < 0:
 
+## Encounter Function
+def encounterGenerator(tableFile):
+    encounterTxt = open(tableFile, "r")
+    encounter = encounterTxt.readlines()
+    print(encounter[random.randint(0,11)]) # 1-10 / 1d10
+    encounterTxt.close()
 
 # Main code
 program = True
@@ -82,30 +86,53 @@ while program == True:
     # Options with brackets on the end will be later subsituted with stringified variables.
 
     menuInput = input(">> ")
+    # Option A -- Continue Overland Travel
     if menuInput in aList:
         print("You selected option A!")
         overland = True
         while overland == True:
             print("Begin Overland travel")
+            input("")
+            # lol finish this later.
 
+    # Option D -- Random Encounters
+    if menuInput in dList:
+        print("You selected option D!")
+        encounterMenu = True
+        while encounterMenu == True:
+            print(" == Random Encounter Menu ==")
+            print('''
+            a ) Generate a random encounter
+            b ) Generate a random encounter by TERRAIN
+            c ) Generate a random encounter by TYPE
+            d ) Adjust random encounter chance
+            ''')
+            menuInput = input(">> ")
+            if menuInput in aList:
+                print("Generating a (completely) random encounter")
+
+    # Option Z -- Test Menu
     elif menuInput in zList:
-        print("You selected option Z: feature testing!")
+        print("You selected option Z: manual feature testing!")
         zMode = True
         while zMode == True:
             print("Test What?")
             print("a ) Generate Random Encounter")
             menuInput = input(">> ")
+            # -- A -- Generate Encounter
             if menuInput in aList:
                 zEncounter = True
                 while zEncounter == True:
                     print("Print 1 random BHM - Humanoids?")
                     menuInput = input(">> ")
                     if menuInput in yesList:
-                        bhmHumanmoids = open("bhm_humanoids.txt", "r")
-                        bhmHumanoidsEncounter = bhmHumanmoids.readlines()
-                        print(bhmHumanoidsEncounter[random.randint(0,11)])
-                        bhmHumanmoids.close()
-                        input(">> ")
+                        encounterGenerator("bhm_humanoids.txt")
+                        print("Generate another monster?")
+                        menuInput = input(">> ")
+                        if menuInput in yesList:
+                            print("")
+                        elif menuInput in noList:
+                            zEncounter = False
             else:
                 print("Something went wrong. Try yes.")
     else:

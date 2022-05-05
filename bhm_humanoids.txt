@@ -2,6 +2,7 @@ Dwarf
 Giant, Cloud
 Giant, Frost
 Giant, Hill
+Giant, Stone
 Giant, Storm
 Gnome
 Goblin
