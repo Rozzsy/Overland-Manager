@@ -1,0 +1,12 @@
+Antelope
+Boar
+Cat, Panther
+Cat, Tiger
+Hawk
+Lizard, Gecko
+Lizard Tuatara
+Snake, Pit Viper
+Spider, Crab
+Unicorn
+Wolf
+Wolf, Dire

@@ -1,0 +1,17 @@
+G-Animal
+G-Animal
+1-Dragon
+1-Flyer
+G-Human
+G-Humanoid
+G-Insect
+G-Unusual
+
+g_animal.txt
+g_animal.txt
+u_dragon.txt
+u_flyer.txt
+g_human.txt
+g_humanoid.txt
+u_insect.txt
+u_unusual.txt

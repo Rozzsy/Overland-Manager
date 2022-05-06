@@ -1,0 +1,12 @@
+Gargoyle
+Griffon
+Harpy
+Hawk
+Hawk, Giant
+Hippogriff
+Manticore
+Manticore
+Pegasus
+Roc, Small
+Roc, Large
+Roc, Giant

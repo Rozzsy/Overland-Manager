@@ -1,0 +1,17 @@
+1-Dragon
+1-Flyer
+S-Human
+S-Humanoid
+1-Insect
+S-Swimmer
+2-Undead
+2-Undead
+
+u_dragon.txt
+u_flyer.txt
+s_human.txt
+s_humanoid.txt
+u_insect.txt
+s_swimmer.txt
+u_undead.txt
+u_undead.txt

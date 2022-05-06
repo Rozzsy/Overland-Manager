@@ -1,0 +1,12 @@
+Bugbear
+Elf
+Giant, Hill
+Gnoll
+Goblin
+Halfling
+Hobgoblin
+Ogre
+Orc
+Pixie
+Thoul
+Troll

@@ -1,0 +1,17 @@
+L-Animal
+1-Dragon
+1-Flyer
+L-Human
+L-Humanoid
+1-Insect
+L-Swimmer
+L-Swimmer
+
+l_animal.txt
+u_dragon.txt
+u_flyer.txt
+l_human.txt
+l_humanoid.txt
+u_insect
+l_swimmer.txt
+l_swimmer.txt

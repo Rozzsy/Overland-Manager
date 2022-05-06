@@ -1,0 +1,12 @@
+Antelope
+Boar
+Cat, Lion
+Elephant
+Ferret, Giant
+Hawk, Giant
+Horse, Wild
+Mule
+Rock Baboon
+Snake, Pit Viper
+Snake, Rattler
+Weasel, Giant

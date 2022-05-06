@@ -1,0 +1,17 @@
+J-Animal
+J-Animal
+1-Dragon
+1-Flyer
+J-Human
+J-Humanoid
+1-Insect
+1-Insect
+
+j_animal.txt
+j_animal.txt
+1_dragon.txt
+b_flyer.txt
+j_human.txt
+j_humanoid.txt
+1_insect.txt
+1_insect.txt

@@ -1,0 +1,17 @@
+D-Animal
+D-Animal
+1-Dragon
+D-Flyer
+D-Human
+D-Human
+D-Humanoid
+2-Undead
+
+d_animal.txt
+d_animal.txt
+u_dragon.txt
+d_flyer.txt
+d_human.txt
+d_human.txt
+d_humanoid.txt
+u_undead.txt

@@ -1,0 +1,12 @@
+Basic Adventurers
+Bandit
+Bandit
+Berserker
+Brigand
+Brigand
+Brigand
+Expert Adventurers
+High-Level Cleric
+High-Level Fighter
+High-Level Magic-User
+Merchant

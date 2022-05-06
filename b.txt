@@ -1,0 +1,17 @@
+B-Animal
+U-Dragon
+1-Dragon
+B-Flyer
+B-Human
+B-Humanoid
+B-Humanoid
+U-Unusual
+
+b_animal.txt
+u_dragon.txt
+u_dragon.txt
+b_flyer.txt
+b_human.txt
+b_humanoid.txt
+b_humanoid.txt
+u_unusual.txt

@@ -1,0 +1,12 @@
+Antelope
+Antelope
+Camel
+Camel
+Cat, Lion
+Cat, Lion
+Hawk
+Lizard, Gecko
+Lizard, Tuatara
+Snake, Pit Viper
+Snake, Rattler
+Spider, Tarantella

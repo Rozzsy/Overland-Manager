@@ -3,7 +3,6 @@
 
 # IMPORT MODULES
 import random
-import time
 
 # DESIGN:
     # Overland travel movement allowance
@@ -31,6 +30,10 @@ jList = ["j", "J"]
 zList = ["z", "Z"]
 
 #Variables
+## Random Encounters
+typeLineNumber = 0
+encounterTypeDir = 0
+
 ## Party Members
 eaters = 4
 drinkers = 4
@@ -53,12 +56,30 @@ else:
 # def rationCheck():
 #     if rations < 0:
 
-## Encounter Function
+## Encounter Functions
+### Generate encounter from type
 def encounterGenerator(tableFile):
     encounterTxt = open(tableFile, "r")
     encounter = encounterTxt.readlines()
-    print(encounter[random.randint(0,11)]) # 1-10 / 1d10
+    print(encounter[random.randint(0,11)]) # 1-12 / roll 1d12
     encounterTxt.close()
+    # Since it's only used for printing, doesn't need an associated number
+
+### Generate type from terrain
+def encounterTypeGenerator(tableTypeFile):
+    encounterTypeTxt = open(tableTypeFile, "r")
+    encounterType = encounterTypeTxt.readlines()
+    typeLineNumber = 0
+    # typeLineNumber = random.randint(0,7) # 1-8 / roll 1d8
+    print(encounterType[typeLineNumber])
+    typeLineNumberDir = int(typeLineNumber) + 9 # Looks for the file directory in the txt file.
+    # print(typeLineNumberDir) These were for testing
+    # print(encounterType[typeLineNumberDir])
+    global encounterTypeDir
+    encounterTypeDir = encounterType[typeLineNumberDir]
+    encounterTypeDir = encounterTypeDir.strip()
+    print(encounterTypeDir)
+    encounterTypeTxt.close()
 
 # Main code
 program = True
@@ -93,9 +114,9 @@ while program == True:
         while overland == True:
             print("Begin Overland travel")
             input("")
-            # lol finish this later.
+            # finish this later lol.
 
-    # Option D -- Random Encounters
+    # Option D -- RANDOM ENCOUNTERS
     if menuInput in dList:
         print("You selected option D!")
         encounterMenu = True
@@ -110,6 +131,19 @@ while program == True:
             menuInput = input(">> ")
             if menuInput in aList:
                 print("Generating a (completely) random encounter")
+                rEncounterTerrain = 1
+                # rEncounterTerrain = random.randint(1,8) # Determine random terrain type
+                # rEncounterType = random.randint(1,8) # Determine type early.
+
+                # 1 = BHM, 2 = Desert, 3 = Forest, 4 = grasslands, 5 = jungle,
+                # 6 = Lake/River, 7 = Ocean/Sea, 8 = Swamp
+
+                if rEncounterTerrain == 1: # Barren, Hills, Mountains (B)
+                    print("Terrain: Barren, Hills, Mountains")
+                    encounterTypeGenerator("b.txt")
+                    input("Enter to Continue")
+                    encounterGenerator(encounterTypeDir)
+
 
     # Option Z -- Test Menu
     elif menuInput in zList:
@@ -126,7 +160,7 @@ while program == True:
                     print("Print 1 random BHM - Humanoids?")
                     menuInput = input(">> ")
                     if menuInput in yesList:
-                        encounterGenerator("bhm_humanoids.txt")
+                        encounterGenerator("b_humanoids.txt")
                         print("Generate another monster?")
                         menuInput = input(">> ")
                         if menuInput in yesList:

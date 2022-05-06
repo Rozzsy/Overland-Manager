@@ -1,0 +1,12 @@
+Bugbear
+Cyclops
+Dryad
+Elf
+Giant, Hill
+Gnoll
+Goblin
+Hobgoblin
+Ogre
+Orc
+Thoul
+Troll
