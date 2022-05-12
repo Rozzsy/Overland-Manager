@@ -7,8 +7,8 @@ O-Swimmer
 O-Swimmer
 O-Swimmer
 
-1_dragon.txt
-1_flyer.txt
+u_dragon.txt
+u_flyer.txt
 o_swimmer.txt
 o_swimmer.txt
 o_swimmer.txt

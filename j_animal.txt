@@ -1,12 +1,12 @@
-Bugbear
-Elf
-Giant, Hill
-Gnoll
-Goblin
-Halfling
-Hobgoblin
-Ogre
-Orc
-Pixie
-Thoul
-Troll
+Antelope
+Boar
+Cat, Panther
+Lizard, Draco
+Lizard, Gecko
+Lizard, Horned Chameleon
+Rat, Giant
+Shrew, Giant
+Snake, Pit Viper
+Snake, Rock Python
+Snake, Spitting Cobra
+Spider, Crab

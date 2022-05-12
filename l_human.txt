@@ -1,12 +1,12 @@
+Basic Adventurers
 Bandit
-Berserker
 Brigand
-Brigand
-Brigand
-Expert Adventurers
+Buccaneer
+Buccaneer
+Buccaneer
 Expert Adventurers
 High-Level Cleric
 High-Level Fighter
 High-Level Magic-User
 Merchant
-Neanderthal
+Merchant

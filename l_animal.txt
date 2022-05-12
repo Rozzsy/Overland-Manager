@@ -1,0 +1,12 @@
+Entelop
+Boar
+Cat, Panther
+Cat, Tiger
+Crab, Giant
+Crocodile
+Crocodile, Giant
+Piranha, Giant
+Leech, Giant
+Rat, Giant
+Shrew, Giant
+Toad, Giant

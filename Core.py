@@ -11,6 +11,16 @@ import random
     # Management of resources (rations/water)
     # Automation of weather encounters and adjustments to travel
 
+# TO-DO
+    # A ) 1%
+    # B ) 0%
+    # C ) 0%
+    # D ) 70%
+    # E ) 0%
+    # F ) 0%
+    # G ) 0%
+    # Z ) 20% (not that it matters)
+
 # Chances are I'm going to use textfiles located in the same folder to load up tables in combination with the (random) module.
 
 # Agreement lists
@@ -29,10 +39,26 @@ iList = ["i", "I"]
 jList = ["j", "J"]
 zList = ["z", "Z"]
 
+# Dice-range list
+d4 = [1,4]
+d6 = [1,6]
+d8 = [1,8]
+d10 = [1,10]
+d12 = [1,12]
+d20 = [1,20]
+d100 = [1,100]
+
+customChance = 100
+dCustom = [1, customChance]
+
+followThrough = zList
+
 #Variables
 ## Random Encounters
 typeLineNumber = 0
 encounterTypeDir = 0
+
+encounterChance = d6
 
 ## Party Members
 eaters = 4
@@ -73,13 +99,20 @@ def encounterTypeGenerator(tableTypeFile):
     # typeLineNumber = random.randint(0,7) # 1-8 / roll 1d8
     print(encounterType[typeLineNumber])
     typeLineNumberDir = int(typeLineNumber) + 9 # Looks for the file directory in the txt file.
-    # print(typeLineNumberDir) These were for testing
-    # print(encounterType[typeLineNumberDir])
+    # print(typeLineNumberDir)
+    # print(encounterType[typeLineNumberDir]) These were for testing
     global encounterTypeDir
     encounterTypeDir = encounterType[typeLineNumberDir]
     encounterTypeDir = encounterTypeDir.strip()
     print(encounterTypeDir)
     encounterTypeTxt.close()
+
+### Select which terrain to use. Repeated for random terrain slector
+def encounterTerrainSelect(terrainName, terrainFile):
+    print("Terrain: " + terrainName)
+    encounterTypeGenerator(terrainFile)
+    input("Enter to Continue")
+    encounterGenerator(encounterTypeDir)
 
 # Main code
 program = True
@@ -96,8 +129,8 @@ while program == True:
     OPTIONS:
     a ) Continue Overland Movement
     b ) Adjust movement rate [4 hexes/day]
-    c ) Configure feature discovery [ X ]
-    d ) Manage random encounters [1-in-6]
+    c ) Configure feature discovery [ OFF ]
+    d ) Manage random encounters [1-in-''' + str(encounterChance[1]) + ''']
     e ) Manage weather generation [Generic]
     f ) Resource management
     g ) Terrain overview
@@ -126,25 +159,81 @@ while program == True:
             a ) Generate a random encounter
             b ) Generate a random encounter by TERRAIN
             c ) Generate a random encounter by TYPE
-            d ) Adjust random encounter chance
+            d ) Make a random encounter check
+            e ) Adjust random encounter chance
+            z ) Exit
             ''')
             menuInput = input(">> ")
-            if menuInput in aList:
-                print("Generating a (completely) random encounter")
-                rEncounterTerrain = 1
-                # rEncounterTerrain = random.randint(1,8) # Determine random terrain type
-                # rEncounterType = random.randint(1,8) # Determine type early.
+            if menuInput in zList:
+                encounterMenu = False
+            elif menuInput in aList:
+                print("Generating a (completely) random encounter:")
+                rEncounterTerrain = random.randint(1,8) # Determine random terrain type
+                rEncounterType = random.randint(1,8) # Determine type early.
 
-                # 1 = BHM, 2 = Desert, 3 = Forest, 4 = grasslands, 5 = jungle,
+                # 1 = BHM, 2 = Desert, 3 = Forest, 4 = Grasslands, 5 = Jungle,
                 # 6 = Lake/River, 7 = Ocean/Sea, 8 = Swamp
 
                 if rEncounterTerrain == 1: # Barren, Hills, Mountains (B)
-                    print("Terrain: Barren, Hills, Mountains")
-                    encounterTypeGenerator("b.txt")
-                    input("Enter to Continue")
-                    encounterGenerator(encounterTypeDir)
+                    encounterTerrainSelect("Barren, Hills, Mountains", "b.txt")
+                elif rEncounterTerrain == 2: # Desert (D)
+                    encounterTerrainSelect("Desert", "d.txt")
+                elif rEncounterTerrain == 3: # Forest (F)
+                    encounterTerrainSelect("Forest", "f.txt")
+                elif rEncounterTerrain == 4: # Grasslands (G)
+                    encounterTerrainSelect("Grasslands", "g.txt")
+                elif rEncounterTerrain == 5: # Jungle (J)
+                    encounterTerrainSelect("Jungle", "d.txt")
+                elif rEncounterTerrain == 6: # Lake/River (L)
+                    encounterTerrainSelect("Lake/River", "l.txt")
+                elif rEncounterTerrain == 7: # Ocean/Sea (O)
+                    encounterTerrainSelect("Ocean/Sea", "o.txt")
+                elif rEncounterTerrain == 8: # Swamp (S)
+                    encounterTerrainSelect("Swamp", "s.txt")
+            elif menuInput in dList:
+                # Random Encounter check using 'encounterChance'
+                print("Making an encounter check:")
+                encounterCheck = random.randint(encounterChance[0], encounterChance[1])
+                print(encounterCheck)
+                if encounterCheck == 1:
+                    print("A random encounter has occured!")
+                else:
+                    print("No random encounter.")
 
-
+            elif menuInput in eList:
+                # Adjusts what 'die' is rolled. result is stored in 'encounterChance'
+                print("Adjusting encounter chance:")
+                print("Current: " + str(encounterChance))
+                print('''What die is rolled for the new encounter chance? (1-in-x)
+                a ) Always encounter (100%)
+                b ) 1d4 (25%)
+                c ) 1d6 (16.66%, default)
+                d ) 1d8 (12.5%)
+                e ) 1d10 (10%)
+                f ) 1d12 (8.33%)
+                g ) 1d20 (5%)
+                h ) Custom (1dX)
+                ''')
+                menuInput = input(">> ")
+                if menuInput in aList:
+                    encounterChance = 1
+                elif menuInput in bList:
+                    encounterChance = d4
+                elif menuInput in cList:
+                    encounterChance = d6
+                elif menuInput in dList:
+                    encounterChance = d8
+                elif menuInput in eList:
+                    encounterChance = d10
+                elif menuInput in fList:
+                    encounterChance = d12
+                elif menuInput in gList:
+                    encounterChance = d20
+                elif menuInput in hList:
+                    print("enter the new encounter chance (1-in-X)")
+                    customChance = input(">> ")
+                print(encounterChance)
+                
     # Option Z -- Test Menu
     elif menuInput in zList:
         print("You selected option Z: manual feature testing!")
@@ -168,6 +257,6 @@ while program == True:
                         elif menuInput in noList:
                             zEncounter = False
             else:
-                print("Something went wrong. Try yes.")
+                print("Something went wrong. Try again.")
     else:
         print("Something went wrong.")

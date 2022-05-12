@@ -1,0 +1,12 @@
+Bugbear
+Elf
+Gnoll
+Hobgoblin
+Lizard Man
+Lizard Man
+Nixie
+Ogre
+Orc
+Sprite
+Thoul
+Troll

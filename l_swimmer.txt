@@ -1,0 +1,12 @@
+Crab, Giant
+Crocodile
+Crocodile
+Crocodile, Large
+Fish, Catfish
+Fish, Piranha
+Fish, Sturgeon
+Leech, Giant
+Lizard Man
+Merman
+Nixie
+Termite, Water

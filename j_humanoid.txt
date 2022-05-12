@@ -1,12 +1,12 @@
 Bugbear
+Cyclops
 Elf
+Giant, Fire
 Giant, Hill
 Gnoll
 Goblin
-Halfling
-Hobgoblin
+Lizard Man
 Ogre
 Orc
-Pixie
-Thoul
+Troglodyte
 Troll
