@@ -48,7 +48,7 @@ d12 = [1,12]
 d20 = [1,20]
 d100 = [1,100]
 
-customChance = 100
+customChance = 0
 dCustom = [1, customChance]
 
 followThrough = zList
@@ -155,7 +155,8 @@ while program == True:
         encounterMenu = True
         while encounterMenu == True:
             print(" == Random Encounter Menu ==")
-            print('''
+            print('''Random Encounter checks are made every day and every night when the party camps.
+
             a ) Generate a random encounter
             b ) Generate a random encounter by TERRAIN
             c ) Generate a random encounter by TYPE
@@ -204,7 +205,7 @@ while program == True:
                 # Adjusts what 'die' is rolled. result is stored in 'encounterChance'
                 print("Adjusting encounter chance:")
                 print("Current: " + str(encounterChance))
-                print('''What die is rolled for the new encounter chance? (1-in-x)
+                print('''What die is rolled for the new encounter chance? (1-in-x) In order to roll a random encounter, a 1 must be rolled.
                 a ) Always encounter (100%)
                 b ) 1d4 (25%)
                 c ) 1d6 (16.66%, default)
@@ -231,7 +232,10 @@ while program == True:
                     encounterChance = d20
                 elif menuInput in hList:
                     print("enter the new encounter chance (1-in-X)")
+                    print("To turn of random encounters, put '0'.")
                     customChance = input(">> ")
+                    encounterChance = dCustom
+                    dCustom = [1, customChance]
                 print(encounterChance)
                 
     # Option Z -- Test Menu
