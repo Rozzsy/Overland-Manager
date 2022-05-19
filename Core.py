@@ -159,8 +159,9 @@ while program == True:
     menuInput = input(">> ")
 
     ###############################################
-    # Option A -- CONTINUE OVERLAND TRAVEL        #
+    # Option A -- CONTINUE OVERLAND TRAVEL        # #
     ###############################################
+
     if menuInput in aList:
         print("You selected option A!")
         overland = True
@@ -170,8 +171,9 @@ while program == True:
             # finish this later lol.
 
     ###############################################
-    # Option D -- RANDOM ENCOUNTERS               #
+    # Option D -- RANDOM ENCOUNTERS               # # # # #
     ###############################################
+
     if menuInput in dList:
         print("You selected option D!")
         encounterMenu = True
@@ -296,15 +298,16 @@ while program == True:
                     encounterChance = d20
                 elif menuInput in hList:
                     print("enter the new encounter chance (1-in-X)")
-                    print("To turn of random encounters, put '0'.")
+                    print("To turn off random encounters, put '0'.")
                     customChance = input(">> ")
                     encounterChance = dCustom
                     dCustom = [1, customChance]
                 print(encounterChance)
                 
     ###############################################
-    # Option E -- WEATHER GENERATION              #
+    # Option E -- WEATHER GENERATION              # # # # # #
     ###############################################
+
     elif menuInput in eList:
         print("You selected Option E!")
         weatherMenu = True
@@ -323,33 +326,44 @@ while program == True:
                 weatherMenu = False
             elif menuInput in aList:
                 # Option A: Weather check
-                print("Rolling 3d6 to determine weather")
-                diceRoller(3,6)
+                print("Rolling 3d6 to determine weather") # 2d6 in order to generate a bell-curve probability (more likely to get ~7, least likely to get 2 or 12).
+                diceRoller(2,6)
                 weatherValue = dieTotal
-                if weatherValue >= 17:
+                if weatherValue <= 2:
                     # Extreme Weather
                     print("Extreme Weather!")
                     print("This usually means that there is currently a storm of blizzard, making travel extremely difficult and unpleasant.")
                     print("")
                     print("The party's movement rate while travelling is reduced by 50%.")
-                    weatherCondition = -50
-                elif weatherMenu >= 13:
+                    weatherCondition = 0.5
+                    print("")
+                elif weatherValue <= 5:
                     # Disruptive Weather
                     print("Disruptive Weather.")
                     print("This usually means that it is currently raining or snowing with potentially strong winds, making travel slightly more difficult.")
                     print("")
                     print("The party's movement rate while travelling is reduced by 33%.")
-                    weatherCondition = -33
+                    weatherCondition = 0.67
+                    print("")
                 else:
                     print("Normal weather.")
                     print("It is either sunny or overcast.")
                     print("")
                     print("Travel is made at a normal rate.")
                     weatherCondition = 0
+                    print("")
+            elif menuInput in bList:
+                print("Weather Table")
+                print('''
+                1-2:   Extreme Weather (-50% Travel Speed)
+                3-5:   Disruotive Weather (-33% Travel Speed)
+                6-12:  Normal Weather (No Travel Speed Penalty''')
+                print("")
 
     ###############################################
     # Option Z -- TEST MENU                       #
     ###############################################
+
     elif menuInput in zList:
         print("You selected option Z: manual feature testing!")
         zMode = True
