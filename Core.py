@@ -15,7 +15,7 @@ import random
     # A ) 1%
     # B ) 0%
     # C ) 0%
-    # D ) 70%
+    # D ) 100%
     # E ) 0%
     # F ) 0%
     # G ) 0%
@@ -104,14 +104,15 @@ def encounterTypeGenerator(tableTypeFile):
     global encounterTypeDir
     encounterTypeDir = encounterType[typeLineNumberDir]
     encounterTypeDir = encounterTypeDir.strip()
-    print(encounterTypeDir)
+    # print(encounterTypeDir) # Remove/Comment out once its no longer needed for testing
     encounterTypeTxt.close()
 
-### Select which terrain to use. Repeated for random terrain slector
+### Select which terrain to use. Repeated for random terrain selector
 def encounterTerrainSelect(terrainName, terrainFile):
     print("Terrain: " + terrainName)
     encounterTypeGenerator(terrainFile)
     input("Enter to Continue")
+    print("")
     encounterGenerator(encounterTypeDir)
 
 # Main code
@@ -134,13 +135,15 @@ while program == True:
     e ) Manage weather generation [Generic]
     f ) Resource management
     g ) Terrain overview
-    z ) Test Menu
     ''')
 
     # Options with brackets on the end will be later subsituted with stringified variables.
 
     menuInput = input(">> ")
-    # Option A -- Continue Overland Travel
+
+    ###############################################
+    # Option A -- CONTINUE OVERLAND TRAVEL        #
+    ###############################################
     if menuInput in aList:
         print("You selected option A!")
         overland = True
@@ -149,7 +152,9 @@ while program == True:
             input("")
             # finish this later lol.
 
-    # Option D -- RANDOM ENCOUNTERS
+    ###############################################
+    # Option D -- RANDOM ENCOUNTERS               #
+    ###############################################
     if menuInput in dList:
         print("You selected option D!")
         encounterMenu = True
@@ -159,14 +164,20 @@ while program == True:
 
             a ) Generate a random encounter
             b ) Generate a random encounter by TERRAIN
-            c ) Generate a random encounter by TYPE
-            d ) Make a random encounter check
-            e ) Adjust random encounter chance
+            c ) Make a random encounter check
+            d ) Adjust random encounter chance
             z ) Exit
             ''')
+            # A = Done
+            # B = Not done
+            # C = Not done
+            # D = Done
+            # E = Done
             menuInput = input(">> ")
             if menuInput in zList:
                 encounterMenu = False
+            
+            # OPTION A: Completely random encounter
             elif menuInput in aList:
                 print("Generating a (completely) random encounter:")
                 rEncounterTerrain = random.randint(1,8) # Determine random terrain type
@@ -191,6 +202,82 @@ while program == True:
                     encounterTerrainSelect("Ocean/Sea", "o.txt")
                 elif rEncounterTerrain == 8: # Swamp (S)
                     encounterTerrainSelect("Swamp", "s.txt")
+
+            # OPTION B: Encounter by TERRAIN
+            elif menuInput in bList:
+                generateByTerrain = True
+                while generateByTerrain == True:
+                    print('''Generating an encouter by TERRAIN:)             
+                    a ) Barren, Hills, Mountain
+                    b ) Desert
+                    c ) Forest
+                    d ) Grassland
+                    e ) Jungle
+                    f ) Lake/River
+                    g ) Oceans/Sea
+                    h ) Swamp
+                    z ) Back
+                    ''')
+                    menuInput = input(">> ")
+                    if menuInput in zList:
+                        generateByTerrain = False
+                    elif menuInput in aList:
+                        encounterTerrainSelect("Barren, Hills, Mountains", "b.txt")
+                    elif menuInput in bList:
+                        encounterTerrainSelect("Desert", "d.txt")
+                    elif menuInput in cList:
+                        encounterTerrainSelect("Forests", "f.txt")
+                    elif menuInput in dList:
+                        encounterTerrainSelect("Grasslands","g.txt")
+                    elif menuInput in eList:
+                        encounterTerrainSelect("Jungle","j.txt")
+                    elif menuInput in fList:
+                        encounterTerrainSelect("Lake/River","l.txt")
+                    elif menuInput in gList:
+                        encounterTerrainSelect("Ocean/Sea","o.txt")
+                    elif menuInput in hList:
+                        encounterTerrainSelect("Swamp", "s.txt")
+
+            # # OPTION C: Encounter by TYPE
+            # elif menuInput in cList:
+            #     generateByType = True
+            #     while generateByType == True:
+            #         print('''Generating an encouter by TYPE:)             
+            #         a ) Animal
+            #         b ) Dragon
+            #         c ) Flyer
+            #         d ) Insect
+            #         e ) Human
+            #         f ) Humanoid
+            #         g ) Swimmer
+            #         h ) Undead
+            #         i ) Unusual
+            #         z ) Back
+            #         ''')
+            #         menuInput = input(">> ")
+            #         if menuInput in zList:
+            #             generateByTerrain = False
+            #         elif menuInput in aList:
+            #             randomType = random.randint(1,6)
+            #             encounterTypeGenerator()
+            #         elif menuInput in bList:
+            #             encounterTypeGenerator()
+            #         elif menuInput in cList:
+            #             encounterTypeGenerator()
+            #         elif menuInput in dList:
+            #             encounterTypeGenerator()
+            #         elif menuInput in eList:
+            #             encounterTypeGenerator()
+            #         elif menuInput in fList:
+            #             encounterTypeGenerator()
+            #         elif menuInput in gList:
+            #             encounterTypeGenerator()
+            #         elif menuInput in hList:
+            #             encounterTypeGenerator()
+            #         elif menuInput in iList:
+            #             encounterTypeGenerator()
+
+            # OPTION D: Random encounter check
             elif menuInput in dList:
                 # Random Encounter check using 'encounterChance'
                 print("Making an encounter check:")
@@ -214,9 +301,12 @@ while program == True:
                 f ) 1d12 (8.33%)
                 g ) 1d20 (5%)
                 h ) Custom (1dX)
+                z ) Back
                 ''')
                 menuInput = input(">> ")
-                if menuInput in aList:
+                if menuInput in zList:
+                    print("")
+                elif menuInput in aList:
                     encounterChance = 1
                 elif menuInput in bList:
                     encounterChance = d4
@@ -238,7 +328,18 @@ while program == True:
                     dCustom = [1, customChance]
                 print(encounterChance)
                 
-    # Option Z -- Test Menu
+    ###############################################
+    # Option E -- WEATHER GENERATION              #
+    ###############################################
+    elif menuInput in eList:
+        print("You selected Option E!")
+        weatherMenu = True
+        # while weatherMenu == True:
+
+
+    ###############################################
+    # Option Z -- TEST MENU                       #
+    ###############################################
     elif menuInput in zList:
         print("You selected option Z: manual feature testing!")
         zMode = True
