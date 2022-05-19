@@ -78,9 +78,26 @@ if water == -100:
 else:
     waterLabel = str(water)
 
+## Weather
+activeWeather = True
+weatherCondition = 100
+weatherConditionBase = 100
+weatherValue = 10
+
 # Functions
 # def rationCheck():
 #     if rations < 0:
+
+## Dice-roller function from scratch (GOD)
+def diceRoller(dX, Xd):
+    global dieTotal
+    dieTotal = 0
+    for dieResult in range(dX):
+        dieResult = random.randint(1, Xd)
+        dieTotal = dieTotal + dieResult
+        print(dieResult)
+    else:
+        print("total: " + str(dieTotal))
 
 ## Encounter Functions
 ### Generate encounter from type
@@ -129,12 +146,12 @@ while program == True:
     print('''
     OPTIONS:
     a ) Continue Overland Movement
-    b ) Adjust movement rate [4 hexes/day]
-    c ) Configure feature discovery [ OFF ]
-    d ) Manage random encounters [1-in-''' + str(encounterChance[1]) + ''']
-    e ) Manage weather generation [Generic]
-    f ) Resource management
-    g ) Terrain overview
+    b ) Adjust Movement Rate [4 hexes/day]
+    c ) Configure Feature Discovery [ OFF ]
+    d ) Manage Random Encounters [1-in-''' + str(encounterChance[1]) + ''']
+    e ) Manage Weather Generation [''' + str(activeWeather) + ''']
+    f ) Resource Management
+    g ) Terrain Overview
     ''')
 
     # Options with brackets on the end will be later subsituted with stringified variables.
@@ -159,7 +176,7 @@ while program == True:
         print("You selected option D!")
         encounterMenu = True
         while encounterMenu == True:
-            print(" == Random Encounter Menu ==")
+            print(" == Random Encounter Menu == ")
             print('''Random Encounter checks are made every day and every night when the party camps.
 
             a ) Generate a random encounter
@@ -168,11 +185,6 @@ while program == True:
             d ) Adjust random encounter chance
             z ) Exit
             ''')
-            # A = Done
-            # B = Not done
-            # C = Not done
-            # D = Done
-            # E = Done
             menuInput = input(">> ")
             if menuInput in zList:
                 encounterMenu = False
@@ -238,47 +250,8 @@ while program == True:
                     elif menuInput in hList:
                         encounterTerrainSelect("Swamp", "s.txt")
 
-            # # OPTION C: Encounter by TYPE
-            # elif menuInput in cList:
-            #     generateByType = True
-            #     while generateByType == True:
-            #         print('''Generating an encouter by TYPE:)             
-            #         a ) Animal
-            #         b ) Dragon
-            #         c ) Flyer
-            #         d ) Insect
-            #         e ) Human
-            #         f ) Humanoid
-            #         g ) Swimmer
-            #         h ) Undead
-            #         i ) Unusual
-            #         z ) Back
-            #         ''')
-            #         menuInput = input(">> ")
-            #         if menuInput in zList:
-            #             generateByTerrain = False
-            #         elif menuInput in aList:
-            #             randomType = random.randint(1,6)
-            #             encounterTypeGenerator()
-            #         elif menuInput in bList:
-            #             encounterTypeGenerator()
-            #         elif menuInput in cList:
-            #             encounterTypeGenerator()
-            #         elif menuInput in dList:
-            #             encounterTypeGenerator()
-            #         elif menuInput in eList:
-            #             encounterTypeGenerator()
-            #         elif menuInput in fList:
-            #             encounterTypeGenerator()
-            #         elif menuInput in gList:
-            #             encounterTypeGenerator()
-            #         elif menuInput in hList:
-            #             encounterTypeGenerator()
-            #         elif menuInput in iList:
-            #             encounterTypeGenerator()
-
-            # OPTION D: Random encounter check
-            elif menuInput in dList:
+            # OPTION C: Random encounter check
+            elif menuInput in cList:
                 # Random Encounter check using 'encounterChance'
                 print("Making an encounter check:")
                 encounterCheck = random.randint(encounterChance[0], encounterChance[1])
@@ -288,7 +261,8 @@ while program == True:
                 else:
                     print("No random encounter.")
 
-            elif menuInput in eList:
+            # OPTION D: Adjust encounter chances
+            elif menuInput in dList:
                 # Adjusts what 'die' is rolled. result is stored in 'encounterChance'
                 print("Adjusting encounter chance:")
                 print("Current: " + str(encounterChance))
@@ -334,8 +308,44 @@ while program == True:
     elif menuInput in eList:
         print("You selected Option E!")
         weatherMenu = True
-        # while weatherMenu == True:
-
+        while weatherMenu == True:
+            print(" == Weather Menu == ")
+            print("Weather: " + str(activeWeather))
+            print('''Weather checks are made at the beginning of every day, and may impact then movement rate of the party when travelling.
+            
+            a) Make a weather check
+            b) Look at the weather table
+            c) Manually set weather for the day
+            d) Toggle weather checks
+            z) Back''')
+            menuInput = input(">> ")
+            if menuInput in zList:
+                weatherMenu = False
+            elif menuInput in aList:
+                # Option A: Weather check
+                print("Rolling 3d6 to determine weather")
+                diceRoller(3,6)
+                weatherValue = dieTotal
+                if weatherValue >= 17:
+                    # Extreme Weather
+                    print("Extreme Weather!")
+                    print("This usually means that there is currently a storm of blizzard, making travel extremely difficult and unpleasant.")
+                    print("")
+                    print("The party's movement rate while travelling is reduced by 50%.")
+                    weatherCondition = -50
+                elif weatherMenu >= 13:
+                    # Disruptive Weather
+                    print("Disruptive Weather.")
+                    print("This usually means that it is currently raining or snowing with potentially strong winds, making travel slightly more difficult.")
+                    print("")
+                    print("The party's movement rate while travelling is reduced by 33%.")
+                    weatherCondition = -33
+                else:
+                    print("Normal weather.")
+                    print("It is either sunny or overcast.")
+                    print("")
+                    print("Travel is made at a normal rate.")
+                    weatherCondition = 0
 
     ###############################################
     # Option Z -- TEST MENU                       #
@@ -344,11 +354,15 @@ while program == True:
         print("You selected option Z: manual feature testing!")
         zMode = True
         while zMode == True:
-            print("Test What?")
-            print("a ) Generate Random Encounter")
+            print('''Test What?
+            a ) Generate Random Encounter
+            b ) DieRoller
+            z ) Back''')
             menuInput = input(">> ")
-            # -- A -- Generate Encounter
-            if menuInput in aList:
+            # -- A -- Generate 
+            if menuInput in zList:
+                zMode = False
+            elif menuInput in aList:
                 zEncounter = True
                 while zEncounter == True:
                     print("Print 1 random BHM - Humanoids?")
@@ -361,7 +375,12 @@ while program == True:
                             print("")
                         elif menuInput in noList:
                             zEncounter = False
+            elif menuInput in bList:
+                print("Die Roller. Formula is equal to = XdY")
+                dx = input("X = ")
+                dy = input("Y = ")
+                diceRoller(int(dx), int(dy))
             else:
                 print("Something went wrong. Try again.")
     else:
-        print("Something went wrong.")
+        print("Something went wrong. Try again.")
