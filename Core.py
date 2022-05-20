@@ -16,8 +16,8 @@ import random
     # B ) 0%
     # C ) 0%
     # D ) 100%
-    # E ) 0%
-    # F ) 0%
+    # E ) 80%
+    # F ) 20%
     # G ) 0%
     # Z ) 20% (not that it matters)
 
@@ -78,7 +78,11 @@ if water == -100:
 else:
     waterLabel = str(water)
 
-## Weather
+## Movement
+### Terrain
+terrainMovement = True
+
+### Weather
 activeWeather = True
 weatherCondition = 100
 weatherConditionBase = 100
@@ -116,8 +120,6 @@ def encounterTypeGenerator(tableTypeFile):
     # typeLineNumber = random.randint(0,7) # 1-8 / roll 1d8
     print(encounterType[typeLineNumber])
     typeLineNumberDir = int(typeLineNumber) + 9 # Looks for the file directory in the txt file.
-    # print(typeLineNumberDir)
-    # print(encounterType[typeLineNumberDir]) These were for testing
     global encounterTypeDir
     encounterTypeDir = encounterType[typeLineNumberDir]
     encounterTypeDir = encounterTypeDir.strip()
@@ -166,6 +168,7 @@ while program == True:
         print("You selected option A!")
         overland = True
         while overland == True:
+            print("")
             print("Begin Overland travel")
             input("")
             # finish this later lol.
@@ -178,6 +181,7 @@ while program == True:
         print("You selected option D!")
         encounterMenu = True
         while encounterMenu == True:
+            print("")
             print(" == Random Encounter Menu == ")
             print('''Random Encounter checks are made every day and every night when the party camps.
 
@@ -221,7 +225,8 @@ while program == True:
             elif menuInput in bList:
                 generateByTerrain = True
                 while generateByTerrain == True:
-                    print('''Generating an encouter by TERRAIN:)             
+                    print('''
+                    Generating an encouter by TERRAIN:)             
                     a ) Barren, Hills, Mountain
                     b ) Desert
                     c ) Forest
@@ -266,6 +271,7 @@ while program == True:
             # OPTION D: Adjust encounter chances
             elif menuInput in dList:
                 # Adjusts what 'die' is rolled. result is stored in 'encounterChance'
+                print("")
                 print("Adjusting encounter chance:")
                 print("Current: " + str(encounterChance))
                 print('''What die is rolled for the new encounter chance? (1-in-x) In order to roll a random encounter, a 1 must be rolled.
@@ -309,9 +315,11 @@ while program == True:
     ###############################################
 
     elif menuInput in eList:
+        print("")
         print("You selected Option E!")
         weatherMenu = True
         while weatherMenu == True:
+            print("")
             print(" == Weather Menu == ")
             print("Weather: " + str(activeWeather))
             print('''Weather checks are made at the beginning of every day, and may impact then movement rate of the party when travelling.
@@ -320,7 +328,8 @@ while program == True:
             b) Look at the weather table
             c) Manually set weather for the day
             d) Toggle weather checks
-            z) Back''')
+            z) Back
+            ''')
             menuInput = input(">> ")
             if menuInput in zList:
                 weatherMenu = False
@@ -346,6 +355,7 @@ while program == True:
                     weatherCondition = 0.67
                     print("")
                 else:
+                    # Normal 'Standard' Weather
                     print("Normal weather.")
                     print("It is either sunny or overcast.")
                     print("")
@@ -353,13 +363,52 @@ while program == True:
                     weatherCondition = 0
                     print("")
             elif menuInput in bList:
-                print("Weather Table")
+                print("Weather Table:")
                 print('''
-                1-2:   Extreme Weather (-50% Travel Speed)
-                3-5:   Disruotive Weather (-33% Travel Speed)
-                6-12:  Normal Weather (No Travel Speed Penalty''')
-                print("")
+                1-2:   Extreme Weather......(-50% Travel Speed)
+                3-5:   Disruptive Weather...(-33% Travel Speed)
+                6-12:  Normal Weather.......(No Travel Speed Penalty)
+                ''')
 
+    ###############################################
+    # Option F -- RESOURCE MANAGEMENT             #
+    ###############################################
+
+    ###############################################
+    # Option G -- TERRAIN OVERVIEW                #
+    ###############################################
+    # Terrain is actually handled at the top of the document under ##variables.
+    elif menuInput in gList:
+        terrainMenu = True
+        while terrainMenu == True:
+            print("")
+            print(" == Terrain Overview == ")
+            print('''
+            -----------------------------------------
+            Plains/Grasslands:..........Full Movement
+            Maintained Roads:...........+33% Movement
+            -----------------------------------------
+            Barren/Hills:...............-33% Movement
+            Forests:....................-33% Movement
+            -----------------------------------------
+            Swamps:.....................-50% Movement
+            Mountains:..................-50% Movement
+            Jungle:.....................-50% Movement
+            -----------------------------------------
+            
+            a ) Toggle Terrain [Currently: ''' + str(terrainMovement) + ''']
+            z ) Back
+            ''')
+            menuInput = input(">> ")
+            if menuInput in zList:
+                terrainMenu = False
+            elif menuInput in aList:
+                # Toggle terrain movement penalty 
+                if terrainMovement == True:
+                    terrainMovement = False
+                else:
+                    terrainMovement = True
+        
     ###############################################
     # Option Z -- TEST MENU                       #
     ###############################################
@@ -368,7 +417,8 @@ while program == True:
         print("You selected option Z: manual feature testing!")
         zMode = True
         while zMode == True:
-            print('''Test What?
+            print('''
+            Test What?
             a ) Generate Random Encounter
             b ) DieRoller
             z ) Back''')
