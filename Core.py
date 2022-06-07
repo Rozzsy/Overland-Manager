@@ -58,12 +58,6 @@ else:
     rationLabel = str(rations)
 rationDuration = rations / eaters
 
-# water = -100
-# if water == -100:
-#     waterLabel = "--"
-# else:
-#     waterLabel = str(water)
-
 ## Movement
 global movement
 movement = 0
@@ -701,41 +695,3 @@ while program == True:
             menuInput = input(">> ")
             if menuInput in zList:
                 terrainMenu = False
-        
-    ###############################################
-    # Option Z -- TEST MENU                       #
-    ###############################################
-
-    # elif menuInput in zList:
-    #     print("You selected option Z: manual feature testing!")
-    #     zMode = True
-    #     while zMode == True:
-    #         print('''
-    #         Test What?
-    #         a ) Generate Random Encounter
-    #         b ) DieRoller
-    #         z ) Back''')
-    #         menuInput = input(">> ")
-    #         # -- A -- Generate 
-    #         if menuInput in zList:
-    #             zMode = False
-    #         elif menuInput in aList:
-    #             zEncounter = True
-    #             while zEncounter == True:
-    #                 print("Print 1 random BHM - Humanoids?")
-    #                 menuInput = input(">> ")
-    #                 if menuInput in yesList:
-    #                     encounterGenerator("b_humanoids.txt")
-    #                     print("Generate another monster?")
-    #                     menuInput = input(">> ")
-    #                     if menuInput in yesList:
-    #                         print("")
-    #                     elif menuInput in noList:
-    #                         zEncounter = False
-    #         elif menuInput in bList:
-    #             print("Die Roller. Formula is equal to = XdY")
-    #             dx = input("X = ")
-    #             dy = input("Y = ")
-    #             diceRoller(int(dx), int(dy))
-    #         else:
-    #             print("Something went wrong. Try again.")
