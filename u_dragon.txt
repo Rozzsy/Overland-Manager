@@ -1,7 +1,7 @@
 Chimera
 Dragon, Black
 Dragon, Blue
-Dragon, Bold
+Dragon, Gold
 Dragon, Green
 Dragon, Red
 Dragon, White

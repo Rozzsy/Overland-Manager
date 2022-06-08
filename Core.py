@@ -47,7 +47,6 @@ encounterChance = d6
 
 ## Party Members
 eaters = 4
-drinkers = 1
 
 ## Rations and Water
 rations = 10
@@ -57,6 +56,7 @@ if rationConsumption == False:
 else:
     rationLabel = str(rations)
 rationDuration = rations / eaters
+starving = False
 
 ## Movement
 global movement
@@ -98,19 +98,18 @@ weatherCondition = 1
 weatherConditionBase = 1
 
 # Functions
-# def rationCheck():
-#     if rations < 0:
 
 ## Dice-roller function from scratch (GOD)
-def diceRoller(dX, Xd, displayPrint):
+def diceRoller(dX, Xd, displayPrint1, displayPrint2):
     global dieTotal
     dieTotal = 0
     for dieResult in range(dX):
         dieResult = random.randint(1, Xd)
         dieTotal = dieTotal + dieResult
-        if displayPrint == True:
+        if displayPrint1 == True:
             print(dieResult)
     else:
+        if displayPrint2 == True:
             print("total: " + str(dieTotal))
 
 ## Encounter Functions
@@ -118,6 +117,7 @@ def diceRoller(dX, Xd, displayPrint):
 def encounterGenerator(tableFile):
     encounterTxt = open(tableFile, "r")
     encounter = encounterTxt.readlines()
+    print("Monster Encountered:")
     print(encounter[random.randint(0,11)]) # 1-12 / roll 1d12
     encounterTxt.close()
     # Since it's only used for printing, doesn't need an associated number
@@ -139,7 +139,7 @@ def encounterTypeGenerator(tableTypeFile):
 def encounterTerrainSelect(terrainName, terrainFile):
     print("Terrain: " + terrainName)
     encounterTypeGenerator(terrainFile)
-    input("Enter to Continue...")
+    input("Press Enter to determine monster...")
     print("")
     encounterGenerator(encounterTypeDir)
 
@@ -165,6 +165,8 @@ def turnTracker():
     global encounterCheckMade
     global encounterCheck # ?
     global rationLabel
+    global starving
+    global rationsEaten
     movement += totalMovement
     if movement >= int(movementEncounterCheck) and encounterCheckMade == False:
         encounterCheckMade = True
@@ -179,20 +181,37 @@ def turnTracker():
         if encounterCheck == 1:
             encounterTerrainSelect(terrainType[0], terrainType[2])
         
-        print("End of Day.")
+        print("End of the Day.")
         if rationConsumption == True:
-            rations -= eaters
-            print("Consumed " + str(eaters) + " ration(s).")
-            print("")
+            if eaters > rations:
+                print("Consumed " + str(rations) + " ration(s).")
+                print("")
+                rations = 0
+                starving = True
+            else:
+                rations -= eaters
+                print("Consumed " + str(eaters) + " ration(s).")
+                print("")
+            
+            if rations == 0 and starving == False:
+                print("The party has ran out of rations!")
+                starving = True
+            elif rations == 0:
+                print("The party has ran out of rations and is starving!")
+
             rationLabel = str(rations)
-            randomWeather()
+            if weather == True:
+                input("Press Enter to Continue...")
+                print("")
+                print("Generating weather for the next day:")
+                randomWeather()
         
         movement = 0
         encounterCheckMade = False
 
 # Random Weather Generator
 def randomWeather():
-    diceRoller(2,6,False)
+    diceRoller(2,6,False,False)
     weatherValue = dieTotal
     global weatherCondition
     global activeWeather
@@ -200,24 +219,24 @@ def randomWeather():
         # Extreme Weather
         print('''
     Extreme Weather!
-
     This usually means that there is currently a storm or
     blizzard, making travel extremely difficult and unpleasant.
 
-    The party's movement rate while travelling is reduced by 50%.
+    The party's movement rate while travelling the next day
+    is reduced by 50%.
     ''')
         activeWeather = "Extreme"
         weatherCondition = 1.5
     elif weatherValue <= 5:
         # Disruptive Weather
         print('''
-    Disruptive Weather.
-
+    Disruptive Weather!
     This usually means that it is currently raining or
     snowing with potentially strong winds, making travel
     slightly more difficult.
 
-    The party's movement rate while travelling is reduced by 33%.
+    The party's movement rate while travelling the next day
+    is reduced by 33%.
     ''')
         activeWeather = "Disruptive"
         weatherCondition = 1.34
@@ -226,8 +245,8 @@ def randomWeather():
         activeWeather = "Clear"
         print('''
     Normal Weather.
-
-    It is either sunny or overcast.
+    It is either sunny or overcast, with no disruption
+    to travel speed.
 
     Travel is made at a normal rate.
         ''')
@@ -394,11 +413,12 @@ while program == True:
                     terrainType = terrainNothing
                 print("")
                 totalModifier = terrainType[1] * varModifier * weatherCondition
+                totalModifier = round(totalModifier)
                 print("Hex Terrain: " + terrainType[0])
                 print("Total Movement Modifier: " + str(totalModifier))
                 totalMovement = totalModifier * movementSegment
                 totalMovement = round(totalMovement)
-                print("Total Movement: " + str(totalMovement))
+                print("Total Movement Used: " + str(totalMovement))
                 print("")
                 turnTracker()
                 input("Press Enter to Continue...")
@@ -537,7 +557,7 @@ while program == True:
                 elif menuInput in gList:
                     encounterChance = d20
                 elif menuInput in hList:
-                    print("enter the new encounter chance (1-in-X)")
+                    print("Enter the new encounter chance (1-in-X)")
                     print("To turn off random encounters, put '0'.")
                     customChance = input(">> ")
                     encounterChance = dCustom
@@ -613,10 +633,13 @@ while program == True:
             elif menuInput in dList: 
                 if weather == True:
                     weather = False
-                    activeWeather = "None"
-                    weatherCondition = 1.0
+                    print("Weather Disabled")
+                    print("Note: You may still want to set weather to 'clear'.")
+                    # activeWeather = "None"
+                    # weatherCondition = 1.0
                 else:
                     weather = True
+                    print("Weather Enabled")
 
 
     ###############################################
